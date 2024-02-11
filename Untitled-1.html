@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lv Hood</title>
+
+    <style>
+        body {
+            background: linear-gradient(to right, #000000, #1a1a1a);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none; /* Hide all containers by default */
+        }
+
+        #tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .tab {
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        #lvHoodTab, #socialTab, #developersTab, #crewsTab, #updateTab {
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        #updateTab {
+            z-index: 2;
+        }
+
+        #discordWidget {
+            margin-top: 20px;
+            display: none;
+        }
+
+        #joinButton {
+            background-color: #7289DA;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        #lvHoodContent, #socialContent, #developersContent, #crewsContent, #updateContent {
+            display: none;
+        }
+
+        #updateContent {
+            text-align: center;
+            padding: 20px;
+            color: #7289DA;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #updateContent pre {
+            white-space: pre-wrap;
+            margin: 0;
+        }
+
+        h1, h2, h3, p {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #7289DA;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="tabs">
+        <div class="tab" id="lvHoodTab" onclick="showTab('lvHood')">Game Info</div>
+        <div class="tab" id="socialTab" onclick="showTab('social')">Social</div>
+        <div class="tab" id="developersTab" onclick="showTab('developers')">Developers</div>
+        <div class="tab" id="crewsTab" onclick="showTab('crews')">Crews</div>
+        <div class="tab" id="updateTab" onclick="fetchUpdateContent(event)">Update</div>
+    </div>
+
+    <div class="container" id="lvHoodContent">
+        <h1>lv Hood - Game Info</h1>
+        <p>lv Hood is an exciting game where you can engage in intense gunfights, participate in stomping wars, and enjoy custom stomp effects.</p>
+        <p>Join the action and be part of the lv Hood community!</p>
+        <a id="joinButton" href="https://discord.com/invite/DrPBvbTnj4" target="_blank">Join Hood Studios Entertainment Discord</a>
+    </div>
+
+    <div class="container" id="socialContent">
+        <h1>lv Hood - Social</h1>
+        <p>Connect with us on various social platforms:</p>
+        <ul>
+            <li>YouTube: <a href="https://www.youtube.com/@HoodStudio_Topic" target="_blank">Hood Studios Entertainment On YouTube</a></li>
+            <li>TikTok: <a href="YOUR_TIKTOK_LINK" target="_blank">tiktok coming soon</a></li>
+            <li>Roblox Group: <a href="https://www.roblox.com/groups/15060252/The-Shadow-Gamer#!/about" target="_blank">lv Hood Roblox Group</a></li>
+        </ul>
+    </div>
+
+    <div class="container" id="developersContent">
+        <h1>lv Hood - Developers</h1>
+        <p>Special thanks to the talented individuals who contributed to the development of lv Hood:</p>
+        <ul>
+            <li>Developer 1</li>
+            <li>Developer 2</li>
+            <li>Designer 1</li>
+            <li>Tester 1</li>
+        </ul>
+    </div>
+
+    <div class="container" id="crewsContent">
+        <h1>lv Hood - Crews</h1>
+        <p>Join one of the following crews in lv Hood:</p>
+        <ul>
+            <li><a href="https://www.roblox.com/groups/16218098/Xzyn-alt-shop#!/about" target="_blank">YZNS</a></li>
+            <li><a href="https://www.roblox.com/groups/33832534/Cursed#!/about" target="_blank">死 Cursed Spirits</a></li>
+            <!-- Add more crews as needed -->
+        </ul>
+    </div>
+
+    <div class="container" id="updateContent">
+        <h1>lv Hood - Update Log</h1>
+        <p>Loading update content...</p>
+    </div>
+
+    <script>
+        // Get the active tab from localStorage or default to 'lvHood'
+        const activeTab = localStorage.getItem('activeTab') || 'lvHood';
+    
+        function showTab(tabName) {
+            hideAllContent();
+    
+            if (tabName === 'update') {
+                fetchUpdateContent(); // Fetch update content immediately
+            }
+    
+            document.getElementById(tabName + 'Content').style.display = 'block';
+            document.getElementById(tabName + 'Tab').style.color = '#7289DA';
+    
+            // Store the active tab in localStorage
+            localStorage.setItem('activeTab', tabName);
+        }
+    
+        async function fetchUpdateContent() {
+            const githubUrl = 'https://raw.githubusercontent.com/XzynAstral/Website/main/updates.txt';
+    
+            hideAllContent();
+    
+            document.getElementById('updateContent').innerHTML = '<p>Loading update content...</p>';
+            document.getElementById('updateContent').style.display = 'block';
+            document.getElementById('updateTab').style.color = '#7289DA';
+    
+            try {
+                const response = await fetch(githubUrl);
+                const data = await response.text();
+                const formattedData = `<pre>${data}</pre>`;
+                document.getElementById('updateContent').innerHTML = formattedData;
+            } catch (error) {
+                console.error('Error fetching or displaying update content:', error);
+                const errorMessage = '<p>Error fetching or displaying update content</p>';
+                document.getElementById('updateContent').innerHTML = errorMessage;
+            }
+        }
+    
+        function hideAllContent() {
+            const tabNames = ['lvHood', 'social', 'developers', 'crews', 'update'];
+    
+            for (const tabName of tabNames) {
+                const contentElement = document.getElementById(tabName + 'Content');
+                const tabElement = document.getElementById(tabName + 'Tab');
+    
+                if (contentElement && tabElement) {
+                    contentElement.style.display = 'none';
+                    tabElement.style.color = 'white';
+                }
+            }
+        }
+    
+        // Show the active tab on page load
+        showTab(activeTab);
+    </script>
+
+</body>
+</html>
