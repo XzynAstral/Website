@@ -1,1 +1,25 @@
-This is an update log fuck you
+Added SilentAura
+
+Added HitSelect as an independent module
+
+Pause and Active modes
+
+Added Jump Reset mode for Velocity
+
+Reworked FakeLag
+
+Latency and Dynamic modes
+
+Reworked Freecam
+
+Added NoJumpDelay
+
+Added tick delay for Velocity
+
+Reorganized categories for some Utility modules into Inventory category
+
+Removed blatant mode requirement for some modules
+
+Removed legacy blatant modules
+
+Bugfixes
