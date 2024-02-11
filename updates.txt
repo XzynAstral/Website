@@ -1,5 +1,4 @@
-Small Fixes:
-
+Game update:
 The data loss issue has been resolved.
 The ragdoll issue has been fixed.
 The motov not working on mobile has also been addressed.
